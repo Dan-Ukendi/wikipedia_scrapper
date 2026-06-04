@@ -16,7 +16,7 @@ def clean(text):
     text = re.sub(r'[^\w\s\.\,\:\;\!\?\-–—\'\"\(\)\n]', '', text, flags=re.UNICODE)
     return re.sub(r' +|\n+', lambda m: ' ' if ' ' in m.group() else '\n', text).strip()
 
-def date(wikipedia_url):
+def date(wikipedia_url,leaders_per_country):
     for contries in leaders_per_country:
         for chef in leaders_per_country[contries]:
             if chef["wikipedia_url"] == wikipedia_url:
@@ -38,9 +38,9 @@ class wikipedia_scrapper():
         except :
             print("ERROR")
     
-    def get_first_paragraphe(self,url,raw_text):
+    def get_first_paragraphe(self,url,raw_text,leaders_per_country):
         soup = BeautifulSoup(raw_text, "html.parser")
-        year = date(url)
+        year = date(url,leaders_per_country)
         if year is None:
             print("Error info")
             return None

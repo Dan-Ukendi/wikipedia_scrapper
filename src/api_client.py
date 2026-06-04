@@ -27,4 +27,3 @@ class CountryLeadersAPI():
             print("Choose a country between : 'fr', 'us', 'be', 'ma', 'ru'")
 
 test = CountryLeadersAPI()
-print(test.get_leaders('us'))
