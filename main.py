@@ -10,7 +10,7 @@ def main():
     if leaders_per_country:
         for contries in leaders_per_country:
             for leader in contries:
-                leader["Bio"] = scrapper.get_first_paragraphe(leader["wikipedia_url"],scrapper.fetch_url(leader["wikipedia_url"]))
+                leader["Bio"] = scrapper.get_first_paragraphe(leader[wiki])
         for leader in leaders_per_country:
             print(leader["Bio"])
 main()
