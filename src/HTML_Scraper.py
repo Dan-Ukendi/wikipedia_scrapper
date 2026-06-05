@@ -58,12 +58,11 @@ class wikipedia_scrapper():
                 return clean(text)
 
     def save(self, leaders_per_country, filename="leaders.json"):
-        # get the folder where the script is located
         script_dir = os.path.dirname(os.path.abspath(__file__))
         filepath = os.path.join(script_dir, filename)
     
         with open(filepath, "w", encoding="utf-8") as f:
-            json.dump(leaders_per_country, f, ensure_ascii=False)
+            json.dump(leaders_per_country, f, ensure_ascii=False,indent = 4)
             print(f"File saved at: {filepath}")
     
 def get_leaders():
