@@ -11,7 +11,8 @@ def main():
         for contries in leaders_per_country:
             for leader in leaders_per_country[contries]:
                 url = leader["wikipedia_url"]
-                first_para = scrapper.get_first_paragraphe(leader["wikipedia_url"],leaders_per_country)
+                first_para = scrapper.get_first_paragraphe(url,leaders_per_country)
                 leader["Bio"] = first_para
-                print(first_para)
+    scrapper.save(leaders_per_country,"leaders.json")
 main()
+

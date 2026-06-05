@@ -20,7 +20,10 @@ def date(wikipedia_url,leaders_per_country):
     for contries in leaders_per_country:
         for chef in leaders_per_country[contries]:
             if chef["wikipedia_url"] == wikipedia_url:
-                return chef["birth_date"][0:4]
+                if chef["birth_date"]:
+                    return chef["birth_date"][0:4]
+                else :
+                    return chef["first_name"]
 
 class wikipedia_scrapper():
     def __init__(self,session) -> None:
@@ -73,11 +76,3 @@ def get_leaders():
 leaders_per_country = get_leaders()
 session = create_session()
 wiki_scrap = wikipedia_scrapper(session.session)
-for contries in leaders_per_country:
-            for leader in leaders_per_country[contries]:
-                url = leader["wikipedia_url"]
-                (print(wiki_scrap.get_first_paragraphe(url,leaders_per_country)))
-                break
-                first_para = scrapper.get_first_paragraphe(leader["wikipedia_url"],leaders_per_country)
-                leader["Bio"] = first_para
-                print(first_para)
