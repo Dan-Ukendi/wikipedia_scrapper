@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import os
+
 
 class create_session ():
     def __init__(self):
@@ -54,10 +56,15 @@ class wikipedia_scrapper():
             text = str(p.text)
             if  year in text:
                 return clean(text)
+
+    def save(self, leaders_per_country, filename="leaders.json"):
+        # get the folder where the script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        filepath = os.path.join(script_dir, filename)
     
-    def save(self,leaders_per_country, filename="leaders.json"):
-        with open(filename, "w") as f:
-            json.dump(leaders_per_country, f)
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(leaders_per_country, f, ensure_ascii=False)
+            print(f"File saved at: {filepath}")
     
 def get_leaders():
     root_url = "https://country-leaders.onrender.com"
