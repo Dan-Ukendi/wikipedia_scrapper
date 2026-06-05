@@ -8,15 +8,15 @@ from time import sleep
 class Search(Thread):
     lock = RLock()
 
-    def __init__(self,contry,leaders_per_country,scrapper):
+    def __init__(self,country,leaders_per_country,scrapper):
         super().__init__()
-        self.contry = contry
+        self.country = country
         self.leaders_per_country = leaders_per_country
         self.scrapper = scrapper
     
 
     def run(self):
-        for leader in self.contry:
+        for leader in self.leaders_per_country[self.country]:
             url = leader["wikipedia_url"]
             first_para = self.scrapper.get_first_paragraphe(url,self.leaders_per_country)
             sleep(.1)
@@ -37,8 +37,8 @@ def main():
         for contries in leaders_per_country:
             threads.append(Search(contries,leaders_per_country,scrapper))
         for find in threads:
-            find.start
+            find.start()
         for find in threads:
-            find.join 
+            find.join ()
     scrapper.save(leaders_per_country,"leaders.json")
 main()

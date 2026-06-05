@@ -24,6 +24,8 @@ def date(wikipedia_url,leaders_per_country):
             if chef["wikipedia_url"] == wikipedia_url:
                 if chef["birth_date"]:
                     return chef["birth_date"][0:4]
+                elif chef["first_name"] == "Mohammed" and chef["end_mandate"] == "1517-01-01":
+                    return chef["end_mandate"][0:4]
                 else :
                     return chef["first_name"]
 
@@ -63,7 +65,6 @@ class wikipedia_scrapper():
     
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(leaders_per_country, f, ensure_ascii=False,indent = 4)
-            print(f"File saved at: {filepath}")
     
 def get_leaders():
     root_url = "https://country-leaders.onrender.com"
