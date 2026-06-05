@@ -38,8 +38,11 @@ class wikipedia_scrapper():
         except :
             print("ERROR")
     
-    def get_first_paragraphe(self,url,raw_text,leaders_per_country):
-        soup = BeautifulSoup(raw_text, "html.parser")
+    def get_first_paragraphe(self,url,leaders_per_country):
+        response = self.fetch_url(url)
+        if not response:
+            return None
+        soup = BeautifulSoup(response, "html.parser")
         year = date(url,leaders_per_country)
         if year is None:
             print("Error info")
@@ -70,3 +73,11 @@ def get_leaders():
 leaders_per_country = get_leaders()
 session = create_session()
 wiki_scrap = wikipedia_scrapper(session.session)
+for contries in leaders_per_country:
+            for leader in leaders_per_country[contries]:
+                url = leader["wikipedia_url"]
+                (print(wiki_scrap.get_first_paragraphe(url,leaders_per_country)))
+                break
+                first_para = scrapper.get_first_paragraphe(leader["wikipedia_url"],leaders_per_country)
+                leader["Bio"] = first_para
+                print(first_para)

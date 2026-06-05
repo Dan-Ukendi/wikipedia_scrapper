@@ -16,14 +16,18 @@ class CountryLeadersAPI():
         countries = requests.get(f"{self.base_url}{self.countries_endpoint}" , cookies = self.refresh_cookies()).json()
         return countries
     
-    def get_leaders(self, country = str):
-        try:
-            params = {
-                "country" : country
-            }
-            leaders = requests.get(f"{self.base_url}{self.leaders_endpoint}", params, cookies = self.refresh_cookies()).json()
-            return leaders
-        except:     
-            print("Choose a country between : 'fr', 'us', 'be', 'ma', 'ru'")
+    def get_leaders(self):
+        root_url = "https://country-leaders.onrender.com"
+        countries_url = f"{root_url}/countries"
+        leaders_url = f"{root_url}/leaders"
+        cookie_url = f"{root_url}/cookie"
+        cookies = requests.get(cookie_url).cookies 
+        countries = requests.get(countries_url, cookies=cookies).json()  
+        countries = requests.get(countries_url, cookies=cookies).json()
+
+        leaders_per_country = {country: requests.get(leaders_url, cookies=cookies, params={"country": country}).json() for country in countries}
+
+
+        return leaders_per_country
 
 test = CountryLeadersAPI()
